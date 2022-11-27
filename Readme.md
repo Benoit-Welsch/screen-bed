@@ -6,4 +6,11 @@
 
 ## Real Life
 
-![](./asset/irl.png)
+![](./asset/irl.jpg)
+
+## Todo
+
+- Spotify
+- Auto-rotation
+- Alarm
+- Multiple background

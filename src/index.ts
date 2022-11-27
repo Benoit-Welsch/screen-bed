@@ -15,9 +15,8 @@ const matrix = new LedMatrix(
     rows: 32,
     cols: 64,
     hardwareMapping: GpioMapping.AdafruitHat,
-    pixelMapperConfig: LedMatrixUtils.encodeMappers({
-      type: PixelMapperType.U,
-    }),
+    brightness: 75,
+    limitRefreshRateHz: 75,
   },
   {
     ...LedMatrix.defaultRuntimeOptions(),
@@ -30,7 +29,7 @@ const pixels = new Time();
 pixels.run();
 
 matrix.afterSync((mat, dt, t) => {
-  pixels.screen.forEach((p, x, y) => {
+  pixels.screen.forEach((p, y, x) => {
     matrix.fgColor({r: p.r, g: p.g, b: p.b}).setPixel(x, y);
   });
 
