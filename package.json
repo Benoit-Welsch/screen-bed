@@ -1,0 +1,33 @@
+{
+  "name": "bedside-screen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "pnpm.cmd run compile",
+    "pretest": "pnpm.cmd run compile",
+    "posttest": "pnpm.cmd run lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^14.11.2",
+    "gts": "^3.1.1",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.7.0"
+  },
+  "dependencies": {
+    "@types/pngjs": "^6.0.1",
+    "express": "^4.18.2",
+    "js-pixel-fonts": "^1.6.0",
+    "pngjs": "^6.0.0"
+  }
+}
