@@ -100,4 +100,30 @@ describe('Test Element obj', () => {
   //   expect(element.width).to.be.eq(4);
   //   expect(element.height).to.be.eq(4);
   // });
+
+  it('Should scale', () => {
+    const scale = 2;
+    const width = 3;
+    const height = 4;
+    const c1 = new Color(0, 0, 0);
+    const c2 = new Color(255, 255, 255);
+    const element = new Element(width, height, c1);
+
+    element.set(0, 0, c2);
+    expect(element.get(0, 0)).to.be.eq(c2);
+    expect(element.get(1, 1)).to.be.eq(c1);
+
+    element.scale(scale);
+    expect(element.width).to.be.eq(width * scale);
+    expect(element.height).to.be.eq(height * scale);
+
+    for (let y = 0; y < scale; y++) {
+      for (let x = 0; x < scale; x++) {
+        expect(element.get(x, y)).to.be.eq(c2);
+        expect(element.get(scale + x, scale + y)).to.not.eq(c2);
+        expect(element.get(0 + x, scale + y)).to.not.eq(c2);
+        expect(element.get(scale + x, 0 + y)).to.not.eq(c2);
+      }
+    }
+  });
 });

@@ -42,12 +42,12 @@ export class Color {
 }
 
 export class Element extends Array<Array<Color>> {
-  constructor(w: number, h: number) {
+  constructor(w: number, h: number, c = new Color(0, 0, 0)) {
     super(h);
     for (let y = 0; y < h; y++) {
       const line = [];
       for (let x = 0; x < w; x++) {
-        line.push(new Color(0, 0, 0));
+        line.push(c);
       }
       this[y] = line;
     }
@@ -80,6 +80,36 @@ export class Element extends Array<Array<Color>> {
       row.forEach((p, x) => copy.set(x, y, p));
     });
     return copy;
+  }
+
+  // insertIn(element: Element, x = 0, y = 0) {
+  //   if (element.width < this.width + x || element.height < this.height + y)
+  //     throw new Error('Out of bound');
+  //   throw new Error('Not implemented (yet)');
+  // }
+
+  scale(n: number) {
+    const copy = this.copy();
+
+    for (let index = 0; index < n - 1; index++) {
+      copy.forEach((row, y) => {
+        this.push([]);
+        row.forEach(() => {
+          this[y].push(new Color(0, 0, 0));
+        });
+      });
+    }
+
+    copy.forEach((row, y) => {
+      row.forEach((p, x) => {
+        for (let yn = y * n; yn < y * n + n; yn++) {
+          for (let xn = x * n; xn < x * n + n; xn++) {
+            this.set(xn, yn, p);
+          }
+        }
+      });
+    });
+    return this;
   }
 
   crop(startX: number, startY: number, stopX: number, stopY: number) {
