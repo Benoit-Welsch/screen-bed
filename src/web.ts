@@ -4,17 +4,17 @@ import {Time} from './window/time';
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
-const pixels = new Time();
+const time = new Time();
 
-pixels.run();
+time.run();
 
 app.get('/screen', (req, res) => {
-  let body = '<table>';
-  pixels.screen.forEach((p, _, columnIndex) => {
+  let body = '<table style="background:black">';
+  time.screen.forEachFlat((p, _, columnIndex) => {
     if (columnIndex === 0) {
       body += '<tr>';
     }
-    body += `<td><div style="width:15px;height:15px;background-color: rgba(${p.r},${p.g},${p.b},${p.a});"></div></td>`;
+    body += `<td><div style="width:2.5mm;height:2.5mm;border-radius:50%;background-color: rgba(${p.r},${p.g},${p.b},${p.a});"></div></td>`;
     if (columnIndex === 63) {
       body += '</tr>';
     }
