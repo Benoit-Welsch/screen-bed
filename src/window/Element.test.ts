@@ -136,18 +136,20 @@ describe('Test Element obj', () => {
   it('Should resize', () => {
     const width = 4;
     const height = 10;
-    const newWidth = 1;
-    const newHeight = 1;
     const c1 = new Color(0, 0, 0);
     const c2 = new Color(255, 255, 255);
     const element = new Element(width, height, c1);
 
-    element.resize(newWidth, newHeight, c2);
-    expect(element.width).to.be.eq(newWidth);
-    expect(element.height).to.be.eq(newHeight);
+    element.resize(1, 1, c2);
+    expect(element.width).to.be.eq(1);
+    expect(element.height).to.be.eq(1);
 
-    element.resize(width * width, height * height, c2);
-    expect(element.width).to.be.eq(width * width);
-    expect(element.height).to.be.eq(height * height);
+    element.resize(width / 2, height / 2, c2);
+    expect(element.width).to.be.eq(width / 2);
+    expect(element.height).to.be.eq(height / 2);
+
+    element.resize(width ** 2, height ** 2, c2);
+    expect(element.width).to.be.eq(width ** 2);
+    expect(element.height).to.be.eq(height ** 2);
   });
 });
