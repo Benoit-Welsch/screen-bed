@@ -136,35 +136,25 @@ export class Element extends Array<Array<Color>> {
       throw new Error('Invalid crop position');
 
     this.splice(0, startY);
-    this.splice(stopY - startX, this.height);
+    this.splice(stopY - startY, this.height);
 
     this.forEach((row, x) => {
       row.splice(0, startX);
       row.splice(stopX - startX, row.length);
       this[x] = row;
     });
-
     return this;
   }
 
   cropFromCenter(w: number, h: number) {
+    if ((this.width + w) % 2 != 0 || (this.height + h) % 2 != 0)
+      throw new Error('Even number only');
     this.crop(
       (this.width - w) / 2,
       (this.height - h) / 2,
       (this.width + w) / 2,
       (this.height + h) / 2
     );
-    const element = new Element(w, h);
-
-    for (let y = 0; y < h; y++) {
-      for (let x = 0; x < w; x++) {
-        element.set(
-          x,
-          y,
-          this.get((this.width - w) / 2 + x, (this.height - h) / 2 + y)
-        );
-      }
-    }
     return this;
   }
 

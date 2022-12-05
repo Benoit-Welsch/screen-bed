@@ -101,11 +101,12 @@ describe('Test Element obj', () => {
     expect(element.height).to.be.eq(1);
   });
 
-  // it('Should crop from center', () => {
-  //   element.cropFromCenter(4, 4);
-  //   expect(element.width).to.be.eq(4);
-  //   expect(element.height).to.be.eq(4);
-  // });
+  it('Should crop from center', () => {
+    const element = new Element(64, 32);
+    element.cropFromCenter(4, 4);
+    expect(element.width).to.be.eq(4);
+    expect(element.height).to.be.eq(4);
+  });
 
   it('Should scale', () => {
     const scale = 2;
