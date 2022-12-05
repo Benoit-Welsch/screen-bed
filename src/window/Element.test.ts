@@ -64,6 +64,7 @@ describe('Test Element obj', () => {
   });
 
   it('Should crop', () => {
+    const element = new Element(64, 32);
     const c = new Color(20, 20, 20);
     const c2 = new Color(4, 4, 4);
 
@@ -93,6 +94,11 @@ describe('Test Element obj', () => {
 
     // Check if color c2 is not present i new Element
     element.forEach(row => row.forEach(p => expect(p).to.not.eq(c2)));
+
+    element.crop(0, 0, 1, 1);
+
+    expect(element.width).to.be.eq(1);
+    expect(element.height).to.be.eq(1);
   });
 
   // it('Should crop from center', () => {
@@ -125,5 +131,23 @@ describe('Test Element obj', () => {
         expect(element.get(scale + x, 0 + y)).to.not.eq(c2);
       }
     }
+  });
+
+  it('Should resize', () => {
+    const width = 4;
+    const height = 10;
+    const newWidth = 1;
+    const newHeight = 1;
+    const c1 = new Color(0, 0, 0);
+    const c2 = new Color(255, 255, 255);
+    const element = new Element(width, height, c1);
+
+    element.resize(newWidth, newHeight, c2);
+    expect(element.width).to.be.eq(newWidth);
+    expect(element.height).to.be.eq(newHeight);
+
+    element.resize(width * width, height * height, c2);
+    expect(element.width).to.be.eq(width * width);
+    expect(element.height).to.be.eq(height * height);
   });
 });

@@ -88,6 +88,25 @@ export class Element extends Array<Array<Color>> {
   //   throw new Error('Not implemented (yet)');
   // }
 
+  resize(w: number, h: number, c = new Color(0, 0, 0)) {
+    if (w < this.width || h < this.height) this.crop(0, 0, w, h);
+    if (w > this.width)
+      this.forEach((row, x) => {
+        for (let index = this.width; index < w; index++) {
+          this[x].push(c);
+        }
+      });
+    if (h > this.height)
+      for (let index = this.height; index < h; index++) {
+        const line = [];
+        for (let x = 0; x < w; x++) {
+          line.push(c);
+        }
+        this.push(line);
+      }
+    return this;
+  }
+
   scale(n: number) {
     const copy = this.copy();
 
@@ -115,11 +134,16 @@ export class Element extends Array<Array<Color>> {
   crop(startX: number, startY: number, stopX: number, stopY: number) {
     if (startX >= stopX || startY >= stopY)
       throw new Error('Invalid crop position');
-    this.splice(stopY, this.width - stopY);
+
     this.splice(0, startY);
-    this.forEach((c, i) => {
-      this[i] = this[i].slice(startX, stopX);
+    this.splice(stopY - startX, this.height);
+
+    this.forEach((row, x) => {
+      row.splice(0, startX);
+      row.splice(stopX - startX, row.length);
+      this[x] = row;
     });
+
     return this;
   }
 
