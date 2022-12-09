@@ -1,23 +1,19 @@
 import * as express from 'express';
-import {Time} from './window/time';
+import {Time} from './time';
 
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 const time = new Time();
 
-time.run();
-
 app.get('/screen', (req, res) => {
   let body = '<table style="background:black">';
-  time.screen.forEachFlat((p, _, columnIndex) => {
-    if (columnIndex === 0) {
-      body += '<tr>';
-    }
-    body += `<td><div style="width:2.5mm;height:2.5mm;border-radius:50%;background-color: rgba(${p.r},${p.g},${p.b},${p.a});"></div></td>`;
-    if (columnIndex === 63) {
-      body += '</tr>';
-    }
+  time.forEach((row, y) => {
+    body += '<tr>';
+    row.forEach((p, x) => {
+      body += `<td><div style="width:2.5mm;height:2.5mm;border-radius:50%;background-color: rgb(${p.r},${p.g},${p.b});"></div></td>`;
+    });
+    body += '</tr>';
   });
   body += '</table>';
   res.send(body);

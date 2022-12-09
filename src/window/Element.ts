@@ -1,3 +1,4 @@
+import {fonts, renderPixels} from 'js-pixel-fonts';
 import {ReadStream} from 'node:fs';
 import {PNG} from 'pngjs';
 
@@ -74,6 +75,12 @@ export class Element extends Array<Array<Color>> {
     return this[y][x];
   }
 
+  fillWith(c: Color) {
+    this.forEach((row, y) => {
+      row.forEach((p, x) => this.set(x, y, c));
+    });
+  }
+
   copy() {
     const copy = new Element(this.width, this.height);
     this.forEach((row, y) => {
@@ -82,11 +89,19 @@ export class Element extends Array<Array<Color>> {
     return copy;
   }
 
-  // insertIn(element: Element, x = 0, y = 0) {
-  //   if (element.width < this.width + x || element.height < this.height + y)
-  //     throw new Error('Out of bound');
-  //   throw new Error('Not implemented (yet)');
-  // }
+  insertIn(element: Element, offsetX = 0, offsetY = 0) {
+    if (
+      element.width > this.width + offsetX ||
+      element.height > this.height + offsetY
+    )
+      throw new Error('Out of bound');
+    element.forEach((row, y) => {
+      row.forEach((p, x) => {
+        this.set(x + offsetX, y + offsetY, p.copy());
+      });
+    });
+    return this;
+  }
 
   resize(w: number, h: number, c = new Color(0, 0, 0)) {
     if (w < this.width || h < this.height) this.crop(0, 0, w, h);
@@ -177,5 +192,16 @@ export class Element extends Array<Array<Color>> {
         })
         .on('error', reject);
     });
+  }
+
+  static fromString(txt: string, color: Color) {
+    const pixelTxt = renderPixels(txt, fonts.sevenPlus);
+    const element = new Element(pixelTxt[0].length, pixelTxt.length);
+    pixelTxt.forEach((row, y) => {
+      row.forEach((textPixel, x) => {
+        if (textPixel) element.set(x, y, color);
+      });
+    });
+    return element;
   }
 }
