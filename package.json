@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "mocha --require ts-node/register src/**/*.test.ts",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/dev.ts",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
