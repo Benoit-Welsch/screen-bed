@@ -1,13 +1,5 @@
-import web from './web';
-import {
-  LedMatrix,
-  GpioMapping,
-  LedMatrixUtils,
-  PixelMapperType,
-} from 'rpi-led-matrix';
-import {Time} from './window/time';
-
-//web();
+import {LedMatrix, GpioMapping} from 'rpi-led-matrix';
+import {Time} from './time';
 
 const matrix = new LedMatrix(
   {
@@ -24,13 +16,13 @@ const matrix = new LedMatrix(
   }
 );
 
-const pixels = new Time();
+const time = new Time();
 
-pixels.run();
-
-matrix.afterSync((mat, dt, t) => {
-  pixels.screen.forEach((p, y, x) => {
-    matrix.fgColor({r: p.r, g: p.g, b: p.b}).setPixel(x, y);
+matrix.afterSync(() => {
+  time.forEach((row, y) => {
+    row.forEach((p, x) => {
+      matrix.fgColor({r: p.r, g: p.g, b: p.b}).setPixel(x, y);
+    });
   });
 
   setTimeout(() => matrix.sync(), 0);
