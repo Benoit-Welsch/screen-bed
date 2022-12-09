@@ -8,9 +8,9 @@ const time = new Time();
 
 app.get('/screen', (req, res) => {
   let body = '<table style="background:black">';
-  time.forEach((row, y) => {
+  time.forEach(row => {
     body += '<tr>';
-    row.forEach((p, x) => {
+    row.forEach(p => {
       body += `<td><div style="width:2.5mm;height:2.5mm;border-radius:50%;background-color: rgb(${p.r},${p.g},${p.b});"></div></td>`;
     });
     body += '</tr>';

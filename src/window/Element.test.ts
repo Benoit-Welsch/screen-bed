@@ -1,9 +1,7 @@
-import * as mocha from 'mocha';
-import * as chai from 'chai';
+import {expect} from 'chai';
 
 import {Element, Color} from './Element';
 
-const expect = chai.expect;
 describe('Test Color obj', () => {
   const color = new Color(0, 0, 0);
 

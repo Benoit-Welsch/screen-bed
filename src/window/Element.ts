@@ -162,7 +162,7 @@ export class Element extends Array<Array<Color>> {
   }
 
   cropFromCenter(w: number, h: number) {
-    if ((this.width + w) % 2 != 0 || (this.height + h) % 2 != 0)
+    if ((this.width + w) % 2 !== 0 || (this.height + h) % 2 !== 0)
       throw new Error('Even number only');
     this.crop(
       (this.width - w) / 2,
