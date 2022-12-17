@@ -1,5 +1,5 @@
 import {LedMatrix, GpioMapping} from 'rpi-led-matrix';
-import {Time} from './time';
+import {Time} from './screen/timeSakura';
 
 const matrix = new LedMatrix(
   {

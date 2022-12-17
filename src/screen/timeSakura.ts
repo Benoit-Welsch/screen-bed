@@ -1,6 +1,6 @@
 import {createReadStream} from 'fs';
-import {Window} from './window/window';
-import {Color, Element} from './window/Element';
+import {Window} from '../window/window';
+import {Color, Element} from '../window/Element';
 
 export class Time extends Window {
   interval: NodeJS.Timeout | undefined;

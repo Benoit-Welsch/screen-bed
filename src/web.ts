@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {Time} from './time';
+import {Time} from './screen/time';
 
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
@@ -17,6 +17,11 @@ app.get('/screen', (req, res) => {
   });
   body += '</table>';
   res.send(body);
+
+  // Memory usage
+  // for (const [key, value] of Object.entries(process.memoryUsage())) {
+  //   console.log(`Memory usage by ${key}, ${value / 1000000}MB `);
+  // }
 });
 
 export default () =>
